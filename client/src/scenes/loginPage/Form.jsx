@@ -38,7 +38,7 @@ export default function Form() {
     formData.append("picturePath", values.picture.name);
 
     const savedUserResponse = await fetch(
-      "http://localhost:30001/auth/register",
+      "http://localhost:3001/auth/register",
       {
         method: "POST",
         body: formData,
@@ -46,6 +46,7 @@ export default function Form() {
     );
 
     const savedUser = await savedUserResponse.json();
+
     onSubmitProps.resetForm();
 
     if (savedUser) {
@@ -53,7 +54,26 @@ export default function Form() {
     }
   };
 
-  const login = async (values, onSubmitProps) => {};
+  const login = async (values, onSubmitProps) => {
+    const loggedInResponse = await fetch("http://localhost:3001/auth/login", {
+      method: "POST",
+      body: JSON.stringify(values),
+      headers: { "Content-Type": "application/json" },
+    });
+
+    const loggedIn = await loggedInResponse.json();
+    onSubmitProps.resetForm();
+
+    if (loggedIn) {
+      dispatch(
+        setLogin({
+          user: loggedIn.user,
+          token: loggedIn.token,
+        })
+      );
+      navigate("/home");
+    }
+  };
 
   const handleFormSubmit = async (values, onSubmitProps) => {
     if (isLogin) await login(values, onSubmitProps);
@@ -133,7 +153,7 @@ export default function Form() {
                 <Box
                   gridColumn="span 4"
                   border={`1px solid ${palette.neutral.medium}`}
-                  borderRadis="5px"
+                  borderRadius="5px"
                   padding="1rem"
                 >
                   <Dropzone
@@ -189,7 +209,7 @@ export default function Form() {
             />
           </Box>
           {/* BUTTONS */}
-          <Box>
+          <Box p="1rem">
             <Button
               fullWidth
               type="submit"
