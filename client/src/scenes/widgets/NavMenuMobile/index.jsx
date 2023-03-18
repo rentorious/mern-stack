@@ -48,7 +48,7 @@ export default function NavMenuMobile({ fullName, theme }) {
           backgroundColor={background}
         >
           {/* CLOSE ICON */}
-          <Box display="flex" justifiyContent="flex-end" p="1rem">
+          <Box display="flex" justifyContent="flex-end" p="1rem">
             <IconButton onClick={() => setIsMobileMenuToggled((val) => !val)}>
               <Close />
             </IconButton>
