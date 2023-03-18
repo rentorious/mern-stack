@@ -141,30 +141,33 @@ const UserInfo = ({
   picturePath,
   friendNum,
 }) => {
-  <FlexBetween
-    gap="0.5rem"
-    pb="1.1rem"
-    onClick={() => navigate(`/profile/${userId}`)}
-  >
-    <FlexBetween gap="1rem">
-      <UserImage image={picturePath} />
-      <Box>
-        <Typography
-          variant="h4"
-          color={dark}
-          fontWeight="500"
-          sx={{
-            "&:hover": {
-              color: light,
-              cursor: "pointer",
-            },
-          }}
-        >
-          {firstName} {lastName}
-        </Typography>
-        <Typography color={medium}>{friendNum} friends</Typography>
-        <ManageAccountsOutlined />
-      </Box>
+  return (
+    <FlexBetween
+      gap="0.5rem"
+      pb="1.1rem"
+      m="1rem"
+      onClick={() => navigate(`/profile/${userId}`)}
+    >
+      <FlexBetween gap="1rem">
+        <UserImage image={picturePath} />
+        <Box>
+          <Typography
+            variant="h4"
+            color={dark}
+            fontWeight="500"
+            sx={{
+              "&:hover": {
+                color: light,
+                cursor: "pointer",
+              },
+            }}
+          >
+            {firstName} {lastName}
+          </Typography>
+          <Typography color={medium}>{friendNum} friends</Typography>
+          <ManageAccountsOutlined />
+        </Box>
+      </FlexBetween>
     </FlexBetween>
-  </FlexBetween>;
+  );
 };
