@@ -34,7 +34,7 @@ function Friend({ friendId, name, subtitle, userPicturePath }) {
       },
     });
     const data = await res.json();
-    dispatch(setFriends({ friends: data }));
+    dispatch(setFriends(data));
   };
 
   return (
@@ -60,18 +60,18 @@ function Friend({ friendId, name, subtitle, userPicturePath }) {
           <Typography color={medium} fontSize="0.75rem">
             {subtitle}
           </Typography>
-          <IconButton
-            onClick={() => patchFriend}
-            sx={{ backgroundCOlor: primaryLight, p: "0.6rem" }}
-          >
-            {isFriend ? (
-              <PersonRemoveOutlined sx={{ color: primaryDark }} />
-            ) : (
-              <PersonAddOutlined sx={{ color: primaryDark }} />
-            )}
-          </IconButton>
         </Box>
       </FlexBetween>
+      <IconButton
+        onClick={() => patchFriend()}
+        sx={{ backgroundCOlor: primaryLight, p: "0.6rem" }}
+      >
+        {isFriend ? (
+          <PersonRemoveOutlined sx={{ color: primaryDark }} />
+        ) : (
+          <PersonAddOutlined sx={{ color: primaryDark }} />
+        )}
+      </IconButton>
     </FlexBetween>
   );
 }
