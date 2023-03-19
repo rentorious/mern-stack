@@ -5,6 +5,8 @@ import UserWidget from "../widgets/UserWidget";
 import MyPostWidget from "../widgets/MyPostWidget";
 import NavBar from "../navbar";
 import PostsWidget from "../widgets/PostsWidget";
+import AdWidget from "../widgets/AdWidget";
+import FriendsWidget from "../widgets/FriendsWIdget";
 
 const HomePage = () => {
   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
@@ -28,7 +30,13 @@ const HomePage = () => {
           <MyPostWidget picturePath={picturePath} />
           <PostsWidget userId={_id} />
         </Box>
-        {isNonMobileScreens && <Box flexBasis="26%"></Box>}
+        {isNonMobileScreens && (
+          <Box flexBasis="26%">
+            <AdWidget />
+            <Box m="2rem 0"></Box>
+            <FriendsWidget userId={_id} />
+          </Box>
+        )}
       </Box>
     </Box>
   );
