@@ -29,11 +29,9 @@ export const createPost = async (req, res) => {
 // READ
 export const getFeedPosts = async (req, res) => {
   try {
-    console.log("getting posts");
     const allPosts = await Post.find();
     res.status(200).json(allPosts);
   } catch (err) {
-    console.log("this is the error:", err.message);
     res.status(404).json({ message: err.message });
   }
 };
