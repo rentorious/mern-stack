@@ -29,9 +29,11 @@ export const createPost = async (req, res) => {
 // READ
 export const getFeedPosts = async (req, res) => {
   try {
+    console.log("getting posts");
     const allPosts = await Post.find();
     res.status(200).json(allPosts);
   } catch (err) {
+    console.log("this is the error:", err.message);
     res.status(404).json({ message: err.message });
   }
 };
@@ -61,7 +63,7 @@ export const likePost = async (req, res) => {
       post.likes.set(userId, true);
     }
 
-    const updatedPost = Post.findByIdAndUpdate(
+    const updatedPost = await Post.findByIdAndUpdate(
       id,
       { likes: post.likes },
       { new: true }
