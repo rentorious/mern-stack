@@ -5,6 +5,10 @@ const initialState = {
   user: null,
   token: null,
   posts: [],
+  baseUrl:
+    process.env.NODE_ENV === "production"
+      ? process.env.REACT_APP_BASE_URL
+      : "http://localhost:3001",
 };
 
 export const authSlice = createSlice({

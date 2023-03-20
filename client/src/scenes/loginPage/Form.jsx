@@ -10,7 +10,7 @@ import {
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { Formik } from "formik";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Dropzone from "react-dropzone";
 
 import { setLogin } from "../../state";
@@ -29,6 +29,8 @@ export default function Form() {
   const dispatch = useDispatch(0);
   const navigate = useNavigate();
 
+  const baseUrl = useSelector((state) => state.baseUrl);
+
   const register = async (values, onSubmitProps) => {
     // this allows us to send form info with image
     const formData = new FormData();
@@ -37,13 +39,10 @@ export default function Form() {
     }
     formData.append("picturePath", values.picture.name);
 
-    const savedUserResponse = await fetch(
-      "http://localhost:3001/auth/register",
-      {
-        method: "POST",
-        body: formData,
-      }
-    );
+    const savedUserResponse = await fetch(`${baseUrl}/auth/register`, {
+      method: "POST",
+      body: formData,
+    });
 
     const savedUser = await savedUserResponse.json();
 
@@ -55,7 +54,7 @@ export default function Form() {
   };
 
   const login = async (values, onSubmitProps) => {
-    const loggedInResponse = await fetch("http://localhost:3001/auth/login", {
+    const loggedInResponse = await fetch(`${baseUrl}/auth/login`, {
       method: "POST",
       body: JSON.stringify(values),
       headers: { "Content-Type": "application/json" },

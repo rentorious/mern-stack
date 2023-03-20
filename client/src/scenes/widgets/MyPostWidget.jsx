@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 
-import { useDispatch, useSelector } from "react-redux";
-import { setPosts } from "../../state";
 import {
-  EditOutlined,
-  DeleteOutlined,
   AttachFileOutlined,
+  DeleteOutlined,
+  EditOutlined,
   GifBoxOutlined,
   ImageOutlined,
   MicOutlined,
@@ -13,18 +11,20 @@ import {
 } from "@mui/icons-material";
 import {
   Box,
-  Divider,
-  Typography,
-  InputBase,
-  useTheme,
   Button,
+  Divider,
   IconButton,
+  InputBase,
+  Typography,
   useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import Dropzone from "react-dropzone";
+import { useDispatch, useSelector } from "react-redux";
 import FlexBetween from "../../components/FlexBetween";
 import UserImage from "../../components/UserImage";
 import WidgetWrapper from "../../components/WidgetWrapper";
+import { setPosts } from "../../state";
 
 function MyPostWidget({ picturePath }) {
   const [isImage, setIsImage] = useState(false);
@@ -38,6 +38,7 @@ function MyPostWidget({ picturePath }) {
 
   const { _id } = useSelector((state) => state.user);
   const token = useSelector((state) => state.token);
+  const baseUrl = useSelector((state) => state.baseUrl);
 
   const dispatch = useDispatch();
 
@@ -52,7 +53,7 @@ function MyPostWidget({ picturePath }) {
       formData.append("picturePath", image.name);
     }
 
-    const response = await fetch(`http://localhost:3001/posts`, {
+    const response = await fetch(`${baseUrl}/posts`, {
       method: "POST",
       headers: { Authorization: `Bearer ${token}` },
       body: formData,

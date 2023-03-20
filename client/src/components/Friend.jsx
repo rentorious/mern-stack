@@ -18,6 +18,7 @@ function Friend({ friendId, name, subtitle, userPicturePath }) {
 
   const dispatch = useDispatch();
   const { _id } = useSelector((state) => state.user);
+  const baseUrl = useSelector((state) => state.baseUrl);
   const token = useSelector((state) => state.token);
   const friends = useSelector((state) => state.user.friends);
 
@@ -26,7 +27,7 @@ function Friend({ friendId, name, subtitle, userPicturePath }) {
   const navigate = useNavigate();
 
   const patchFriend = async () => {
-    const res = await fetch(`http://localhost:3001/users/${_id}/${friendId}`, {
+    const res = await fetch(`${baseUrl}/users/${_id}/${friendId}`, {
       method: "PATCH",
       headers: {
         Authorization: `Bearer ${token}`,

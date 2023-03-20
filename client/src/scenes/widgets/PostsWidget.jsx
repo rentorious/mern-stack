@@ -10,13 +10,14 @@ function PostsWidget({ userId, isProfile = false }) {
 
   const posts = useSelector((state) => state.posts);
   const token = useSelector((state) => state.token);
+  const baseUrl = useSelector((state) => state.baseUrl);
 
   useEffect(() => {
     if (isProfile) getUserPosts();
     else getPosts();
 
     async function getPosts() {
-      const response = await fetch("http://localhost:3001/posts", {
+      const response = await fetch(`${baseUrl}/posts`, {
         method: "GET",
         headers: { Authorization: `Bearer ${token}` },
       });

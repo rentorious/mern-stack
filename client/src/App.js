@@ -16,6 +16,8 @@ function App() {
 
   const isAuth = !!useSelector((state) => state.token);
 
+  console.log("ognjiste", process.env.REACT_APP_BASE_URL);
+
   return (
     <div className="app">
       <BrowserRouter>

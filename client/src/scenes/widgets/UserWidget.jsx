@@ -27,12 +27,13 @@ function UserWidget({ userId, picturePath }) {
   const navigate = useNavigate();
 
   const token = useSelector((state) => state.token);
+  const baseUrl = useSelector((state) => state.baseUrl);
 
   useEffect(() => {
     getUser();
 
     async function getUser() {
-      const res = await fetch(`http://localhost:3001/users/${userId}`, {
+      const res = await fetch(`${baseUrl}/users/${userId}`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
