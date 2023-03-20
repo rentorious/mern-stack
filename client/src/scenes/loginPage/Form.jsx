@@ -38,7 +38,7 @@ export default function Form() {
     formData.append("picturePath", values.picture.name);
 
     const savedUserResponse = await fetch(
-      "http://localhost:3001/auth/register",
+      "https://mern-stack-backedn.onrender.com/auth/register",
       {
         method: "POST",
         body: formData,
@@ -55,11 +55,14 @@ export default function Form() {
   };
 
   const login = async (values, onSubmitProps) => {
-    const loggedInResponse = await fetch("http://localhost:3001/auth/login", {
-      method: "POST",
-      body: JSON.stringify(values),
-      headers: { "Content-Type": "application/json" },
-    });
+    const loggedInResponse = await fetch(
+      "https://mern-stack-backedn.onrender.com/auth/login",
+      {
+        method: "POST",
+        body: JSON.stringify(values),
+        headers: { "Content-Type": "application/json" },
+      }
+    );
 
     const loggedIn = await loggedInResponse.json();
     onSubmitProps.resetForm();

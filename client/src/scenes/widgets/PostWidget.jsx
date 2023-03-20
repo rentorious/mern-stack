@@ -47,14 +47,17 @@ function PostWidget({
   const likeCount = Object.keys(likes).length;
 
   const patchLike = async () => {
-    const res = await fetch(`http://localhost:3001/posts/${postId}/like`, {
-      method: "PATCH",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ userId: loggedInUserId }),
-    });
+    const res = await fetch(
+      `https://mern-stack-backedn.onrender.com/${postId}/like`,
+      {
+        method: "PATCH",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userId: loggedInUserId }),
+      }
+    );
 
     const updatedPost = await res.json();
     dispatch(setPost({ post: updatedPost }));
@@ -77,7 +80,7 @@ function PostWidget({
           height="auto"
           alt="post"
           style={{ borderRadius: "0.75rem", marginTop: "0.75rem" }}
-          src={`http://localhost:3001/assets/${picturePath}`}
+          src={`https://mern-stack-backedn.onrender.com/assets/${picturePath}`}
         />
       )}
       <FlexBetween mt="0.25rem">

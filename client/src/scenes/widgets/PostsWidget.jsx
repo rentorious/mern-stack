@@ -16,10 +16,13 @@ function PostsWidget({ userId, isProfile = false }) {
     else getPosts();
 
     async function getPosts() {
-      const response = await fetch("http://localhost:3001/posts", {
-        method: "GET",
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const response = await fetch(
+        "https://mern-stack-backedn.onrender.com/posts",
+        {
+          method: "GET",
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
 
       const data = await response.json();
       dispatch(setPosts({ posts: data }));
@@ -27,7 +30,7 @@ function PostsWidget({ userId, isProfile = false }) {
 
     async function getUserPosts() {
       const response = await fetch(
-        `https://localhost:3001/posts/${userId}/posts`,
+        `https://mern-stack-backedn.onrender.com/posts/${userId}/posts`,
         {
           method: "GET",
           headers: { Authorization: `Bearer ${token}` },

@@ -26,13 +26,16 @@ function Friend({ friendId, name, subtitle, userPicturePath }) {
   const navigate = useNavigate();
 
   const patchFriend = async () => {
-    const res = await fetch(`http://localhost:3001/users/${_id}/${friendId}`, {
-      method: "PATCH",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-    });
+    const res = await fetch(
+      `https://mern-stack-backedn.onrender.com/users/${_id}/${friendId}`,
+      {
+        method: "PATCH",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
     const data = await res.json();
     dispatch(setFriends(data));
   };

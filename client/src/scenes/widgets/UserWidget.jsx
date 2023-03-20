@@ -32,12 +32,15 @@ function UserWidget({ userId, picturePath }) {
     getUser();
 
     async function getUser() {
-      const res = await fetch(`http://localhost:3001/users/${userId}`, {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const res = await fetch(
+        `https://mern-stack-backedn.onrender.com/users/${userId}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       const data = await res.json();
       setUser(data);
