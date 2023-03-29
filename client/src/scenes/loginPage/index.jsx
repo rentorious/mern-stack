@@ -15,7 +15,7 @@ const LoginPage = () => {
         textAlign="center"
       >
         <Typography fontWeight="bold" fontSize="32px" color="primary">
-          Sociopedia
+          SociaLite
         </Typography>
       </Box>
       <Box
@@ -26,7 +26,7 @@ const LoginPage = () => {
         backgroundColor={theme.palette.background.alt}
       >
         <Typography fontWeight="500" variant="h5" sx={{ mb: "1.5rem" }}>
-          Welcome the Sociopedia, the Social MEdia For SocioPaths!
+          Welcome the SocioLite, Where all communication is lite!
         </Typography>
       </Box>
       <Form />

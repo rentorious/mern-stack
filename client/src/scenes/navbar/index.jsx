@@ -40,7 +40,7 @@ const NavBar = () => {
             },
           }}
         >
-          Sociopedia
+          SociaLite
         </Typography>
         {isNonMobileScreens && (
           <FlexBetween
