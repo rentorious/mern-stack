@@ -26,6 +26,10 @@
 - jsonwebtoken
 - mongoose/mongodb
 
+### IN PROGRESS:
+
+- Converting to Typescript
+
 ### TODO:
 
 - Fix Bug when visiting a persons page
