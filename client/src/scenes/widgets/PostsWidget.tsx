@@ -2,15 +2,13 @@ import React, { useEffect } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 
-import { setPosts } from "../../state";
+import { selectState, setPosts } from "../../state";
 import PostWidget from "./PostWidget";
 
 function PostsWidget({ userId, isProfile = false }) {
   const dispatch = useDispatch();
 
-  const posts = useSelector((state) => state.posts);
-  const token = useSelector((state) => state.token);
-  const baseUrl = useSelector((state) => state.baseUrl);
+  const { posts, token, baseUrl } = useSelector(selectState);
 
   useEffect(() => {
     if (isProfile) getUserPosts();

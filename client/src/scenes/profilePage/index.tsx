@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Box, useMediaQuery } from "@mui/material";
 import { useSelector } from "react-redux";
@@ -9,12 +9,15 @@ import FriendsWidget from "../widgets/FriendsWIdget";
 import MyPostWidget from "../widgets/MyPostWidget";
 import PostsWidget from "../widgets/PostsWidget";
 import UserWidget from "../widgets/UserWidget";
+import { selectState } from "../../state";
+import { User } from "../../state/types";
 
 const ProfilePage = () => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<null | User>(null);
+
   const { userId } = useParams();
-  const token = useSelector((state) => state.token);
-  const baseUrl = useSelector((state) => state.baseUrl);
+
+  const { token, baseUrl } = useSelector(selectState);
 
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
 

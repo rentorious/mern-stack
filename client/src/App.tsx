@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import React, { useMemo } from "react";
 
 import { useSelector } from "react-redux";
 import { BrowserRouter, Navigate, Routes, Route } from "react-router-dom";
@@ -9,14 +9,13 @@ import HomePage from "./scenes/homePage";
 import LoginPage from "./scenes/loginPage";
 import ProfilePage from "./scenes/profilePage";
 import { themeSettings } from "./theme";
+import { selectState } from "./state";
 
 function App() {
-  const mode = useSelector((state) => state.mode);
+  const { mode, token } = useSelector(selectState);
+
+  const isAuth = !!token;
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
-
-  const isAuth = !!useSelector((state) => state.token);
-
-  console.log("ognjiste", process.env.REACT_APP_BASE_URL);
 
   return (
     <div className="app">

@@ -1,16 +1,18 @@
+import React, { useEffect } from "react";
+
 import { Box, Typography, useTheme } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+
 import Friend from "../../components/Friend";
 import WidgetWrapper from "../../components/WidgetWrapper";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { setFriends } from "../../state";
+import { selectState, setFriends } from "../../state";
 
 const FriendsWidget = ({ userId }) => {
-  const dispatch = useDispatch();
   const { palette } = useTheme();
-  const token = useSelector((state) => state.token);
-  const friends = useSelector((state) => state.user.friends);
-  const baseUrl = useSelector((state) => state.baseUrl);
+
+  const dispatch = useDispatch();
+  const { token, user, baseUrl } = useSelector(selectState);
+  const friends = user?.friends ?? [];
 
   const getFriends = async () => {
     const response = await fetch(`${baseUrl}/users/${userId}/friends`, {
@@ -28,7 +30,7 @@ const FriendsWidget = ({ userId }) => {
   return (
     <WidgetWrapper>
       <Typography
-        color={palette.neutral.dark}
+        color={palette.secondary.dark}
         variant="h5"
         fontWeight="500"
         sx={{ mb: "1.5rem" }}

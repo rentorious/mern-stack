@@ -24,21 +24,20 @@ import { useDispatch, useSelector } from "react-redux";
 import FlexBetween from "../../components/FlexBetween";
 import UserImage from "../../components/UserImage";
 import WidgetWrapper from "../../components/WidgetWrapper";
-import { setPosts } from "../../state";
+import { selectState, setPosts } from "../../state";
 
 function MyPostWidget({ picturePath }) {
   const [isImage, setIsImage] = useState(false);
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState<File | null>(null);
   const [post, setPost] = useState("");
 
   const { palette } = useTheme();
-  const mediumMain = palette.neutral.mediumMain;
-  const medium = palette.neutral.medium;
+  const mediumMain = palette.secondary.contrastText;
+  const medium = palette.secondary.contrastText;
   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
 
-  const { _id } = useSelector((state) => state.user);
-  const token = useSelector((state) => state.token);
-  const baseUrl = useSelector((state) => state.baseUrl);
+  const { user, token, baseUrl } = useSelector(selectState);
+  const _id = user?._id ?? "";
 
   const dispatch = useDispatch();
 
@@ -75,7 +74,7 @@ function MyPostWidget({ picturePath }) {
           value={post}
           sx={{
             width: "100%",
-            backgroundColor: palette.neutral.light,
+            backgroundColor: palette.secondary.light,
             padding: "1rem 2rem",
             borderRadius: "2rem",
           }}
@@ -89,7 +88,7 @@ function MyPostWidget({ picturePath }) {
           p="1rem"
         >
           <Dropzone
-            acceptedFiles=".jpeg,.jpeg,.png"
+            accept={{ "image/*": [".jpeg", ".jpeg", ".png"] }}
             multiple={false}
             onDrop={(acceptedFiles) => setImage(acceptedFiles[0])}
           >
@@ -160,7 +159,7 @@ function MyPostWidget({ picturePath }) {
           disabled={!post}
           onClick={() => handlePost()}
           sx={{
-            color: palette.background.alt,
+            color: palette.background.paper,
             backgroundColor: palette.primary.main,
             borderRadius: "3rem",
           }}

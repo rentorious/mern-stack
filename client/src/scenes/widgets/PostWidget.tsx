@@ -20,7 +20,7 @@ import {
 import FlexBetween from "../../components/FlexBetween";
 import Friend from "../../components/Friend";
 import WidgetWrapper from "../../components/WidgetWrapper";
-import { setPost } from "../../state";
+import { selectState, setPost } from "../../state";
 
 function PostWidget({
   postId,
@@ -36,13 +36,12 @@ function PostWidget({
   const [isComments, setIsComments] = useState(false);
 
   const { palette } = useTheme();
-  const main = palette.neutral.main;
+  const main = palette.secondary.main;
   const primary = palette.primary.main;
 
   const dispatch = useDispatch();
-  const token = useSelector((state) => state.token);
-  const loggedInUserId = useSelector((state) => state.user._id);
-  const baseUrl = useSelector((state) => state.baseUrl);
+  const { token, baseUrl, user } = useSelector(selectState);
+  const loggedInUserId = user?._id || "";
 
   const isLiked = !!likes[loggedInUserId];
   const likeCount = Object.keys(likes).length;

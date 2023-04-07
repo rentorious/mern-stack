@@ -1,8 +1,12 @@
+import React from "react";
+
 import { Box } from "@mui/material";
 import { useSelector } from "react-redux";
 
+import { selectState } from "../state";
+
 export default function UserImage({ image, size = "60px" }) {
-  const baseUrl = useSelector((state) => state.baseUrl);
+  const baseUrl = useSelector(selectState);
 
   return (
     <Box width={size} height={size}>

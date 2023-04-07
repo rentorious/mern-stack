@@ -1,3 +1,5 @@
+import React from "react";
+
 import { DarkMode, Help, LightMode, Message } from "@mui/icons-material";
 import {
   FormControl,
@@ -7,15 +9,16 @@ import {
   Select,
   Typography,
 } from "@mui/material";
-import FlexBetween from "../../../components/FlexBetween";
 import { useDispatch } from "react-redux";
+
+import FlexBetween from "../../../components/FlexBetween";
 import { setLogout, setMode } from "../../../state";
 
 export default function NavMenuDesktop({ fullName, theme }) {
   const dispatch = useDispatch();
 
-  const dark = theme.palette.neutral.dark;
-  const neutralLight = theme.palette.neutral.light;
+  const dark = theme.palette.secondary.dark;
+  const neutralLight = theme.palette.secondary.light;
 
   return (
     <FlexBetween gap="2rem">
@@ -28,7 +31,7 @@ export default function NavMenuDesktop({ fullName, theme }) {
       </IconButton>
       <Message sx={{ fontSize: "25px" }} />
       <Help sx={{ fontSize: "25px" }} />
-      <FormControl variant="standard" value={fullName}>
+      <FormControl variant="standard">
         <Select
           sx={{
             borderRadius: "0.25rem",

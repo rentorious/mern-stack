@@ -1,15 +1,19 @@
+import React from "react";
+
 import { Typography, useTheme } from "@mui/material";
 import { useSelector } from "react-redux";
+
 import FlexBetween from "../../components/FlexBetween";
 import WidgetWrapper from "../../components/WidgetWrapper";
+import { selectState } from "../../state";
 
 const AdWidget = () => {
   const { palette } = useTheme();
-  const dark = palette.neutral.dark;
-  const main = palette.neutral.main;
-  const medium = palette.neutral.medium;
+  const dark = palette.secondary.dark;
+  const main = palette.secondary.main;
+  const medium = palette.secondary.contrastText;
 
-  const baseUrl = useSelector((state) => state.baseUrl);
+  const { baseUrl } = useSelector(selectState);
 
   return (
     <WidgetWrapper>

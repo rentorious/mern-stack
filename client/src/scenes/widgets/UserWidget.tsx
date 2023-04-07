@@ -1,33 +1,32 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
-import { useNavigate } from "react-router-dom";
 import {
-  ManageAccountsOutlined,
   EditOutlined,
   LocationOnOutlined,
+  ManageAccountsOutlined,
   WorkOutlineOutlined,
-  Work,
 } from "@mui/icons-material";
-import { Box, Typography, Divider, useTheme } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
-import UserImage from "../../components/UserImage";
-import FlexBetween from "../../components/FlexBetween";
-import WidgetWrapper from "../../components/WidgetWrapper";
 import { light } from "@mui/material/styles/createPalette";
+import FlexBetween from "../../components/FlexBetween";
+import UserImage from "../../components/UserImage";
+import WidgetWrapper from "../../components/WidgetWrapper";
+import { selectState } from "../../state";
 
 function UserWidget({ userId, picturePath }) {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<any>(null);
 
   const { palette } = useTheme();
-  const dark = palette.neutral.dark;
-  const medium = palette.neutral.medium;
-  const main = palette.neutral.main;
+  const dark = palette.secondary.dark;
+  const medium = palette.secondary.contrastText;
+  const main = palette.secondary.main;
 
   const navigate = useNavigate();
 
-  const token = useSelector((state) => state.token);
-  const baseUrl = useSelector((state) => state.baseUrl);
+  const { token, baseUrl } = useSelector(selectState);
 
   useEffect(() => {
     getUser();

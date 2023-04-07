@@ -5,22 +5,21 @@ import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import { setFriends } from "../state";
+import { selectState, setFriends } from "../state";
 import FlexBetween from "./FlexBetween";
 import UserImage from "./UserImage";
+import { User } from "../state/types";
 
 function Friend({ friendId, name, subtitle, userPicturePath }) {
   const { palette } = useTheme();
   const primaryLight = palette.primary.light;
   const primaryDark = palette.primary.dark;
-  const main = palette.neutral.main;
-  const medium = palette.neutral.medium;
+  const main = palette.secondary.main;
+  const medium = palette.secondary.contrastText;
 
+  const { baseUrl, token, user } = useSelector(selectState);
+  const { _id, friends } = user ?? ({} as User);
   const dispatch = useDispatch();
-  const { _id } = useSelector((state) => state.user);
-  const baseUrl = useSelector((state) => state.baseUrl);
-  const token = useSelector((state) => state.token);
-  const friends = useSelector((state) => state.user.friends);
 
   const isFriend = friends.find((friend) => friend._id === friendId);
 

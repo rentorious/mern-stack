@@ -1,3 +1,5 @@
+import React from "react";
+
 import { Box, Typography, useTheme, useMediaQuery } from "@mui/material";
 
 import Form from "./Form";
@@ -10,9 +12,10 @@ const LoginPage = () => {
     <Box>
       <Box
         width="100%"
-        backgroundColor={theme.palette.background.alt}
+        bgcolor={theme.palette.background.paper}
         p="1rem 6%"
         textAlign="center"
+        component="div"
       >
         <Typography fontWeight="bold" fontSize="32px" color="primary">
           SociaLite
@@ -23,7 +26,7 @@ const LoginPage = () => {
         p="2rem"
         m="2rem auto"
         borderRadius="1.5rem"
-        backgroundColor={theme.palette.background.alt}
+        bgcolor={theme.palette.background.paper}
       >
         <Typography fontWeight="500" variant="h5" sx={{ mb: "1.5rem" }}>
           Welcome the SocioLite, Where all communication is lite!
