@@ -29,7 +29,7 @@ const LoginPage = () => {
         bgcolor={theme.palette.background.paper}
       >
         <Typography fontWeight="500" variant="h5" sx={{ mb: "1.5rem" }}>
-          Welcome the SocioLite, Where all communication is lite!
+          Welcome the SociaLite, Where all communication is lite!
         </Typography>
       </Box>
       <Form />

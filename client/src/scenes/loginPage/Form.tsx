@@ -105,7 +105,7 @@ export default function Form() {
               },
             }}
           >
-            {isRegister ? (
+            {isRegister && (
               <RegisterForm
                 values={values}
                 handleBlur={handleBlur}
@@ -114,15 +114,14 @@ export default function Form() {
                 errors={errors}
                 setFieldValue={setFieldValue}
               />
-            ) : (
-              <LoginForm
-                handleBlur={handleBlur}
-                handleChange={handleChange}
-                values={values}
-                touched={touched}
-                errors={errors}
-              />
             )}
+            <LoginForm
+              handleBlur={handleBlur}
+              handleChange={handleChange}
+              values={values}
+              touched={touched}
+              errors={errors}
+            />
           </Box>
           {/* BUTTONS */}
           <Box p="1rem">

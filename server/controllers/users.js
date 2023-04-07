@@ -7,7 +7,7 @@ export const getUser = async (req, res) => {
     const user = await User.findById(id);
     return res.status(200).json(user);
   } catch (err) {
-    res.status(404).json({ message: error.message });
+    res.status(404).json({ message: err.message });
   }
 };
 

@@ -13,8 +13,6 @@ interface Props {
 function PostsWidget(props: Props) {
   const { userId, isProfile = false } = props;
 
-  console.log("what is this", isProfile);
-
   const dispatch = useDispatch();
 
   const { posts, token, baseUrl } = useSelector(selectState);
