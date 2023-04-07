@@ -28,7 +28,6 @@ export const createPost = async (req, res) => {
 
 // READ
 export const getFeedPosts = async (req, res) => {
-  console.log("getting all posts");
   try {
     const allPosts = await Post.find().sort({ createdAt: -1 });
     res.status(200).json(allPosts);
@@ -38,7 +37,6 @@ export const getFeedPosts = async (req, res) => {
 };
 
 export const getUserPosts = async (req, res) => {
-  console.log("getting user posts");
   try {
     const { userId } = req.params;
     const userPosts = await Post.find({ userId }).sort({ createdAt: -1 });

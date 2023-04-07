@@ -13,6 +13,8 @@ interface Props {
 function PostsWidget(props: Props) {
   const { userId, isProfile = false } = props;
 
+  console.log("what is this", isProfile);
+
   const dispatch = useDispatch();
 
   const { posts, token, baseUrl } = useSelector(selectState);
@@ -32,13 +34,10 @@ function PostsWidget(props: Props) {
     }
 
     async function getUserPosts() {
-      const response = await fetch(
-        `https://localhost:3001/posts/${userId}/posts`,
-        {
-          method: "GET",
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
+      const response = await fetch(`${baseUrl}/posts/${userId}`, {
+        method: "GET",
+        headers: { Authorization: `Bearer ${token}` },
+      });
 
       const data = await response.json();
       dispatch(setPosts({ posts: data }));
