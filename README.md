@@ -26,13 +26,16 @@
 - jsonwebtoken
 - mongoose/mongodb
 
+### DONE:
+
+- ✅ Convert to Typescript
+
 ### IN PROGRESS:
 
-- Converting to Typescript
+- ⚡ Amazon S3 storage
 
 ### TODO:
 
-- Fix Bug when visiting a persons page
-- Aazon S3 storage
-- Comments
-- Messaging
+- ⏳ Fix Bug when visiting a persons page
+- ⏳ Comments
+- ⏳Messaging
