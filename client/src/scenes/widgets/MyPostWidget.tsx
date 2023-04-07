@@ -162,6 +162,9 @@ function MyPostWidget({ picturePath }) {
             color: palette.background.paper,
             backgroundColor: palette.primary.main,
             borderRadius: "3rem",
+            "&:hover": {
+              background: palette.primary.dark,
+            },
           }}
         >
           POST
