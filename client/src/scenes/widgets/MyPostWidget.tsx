@@ -26,7 +26,11 @@ import UserImage from "../../components/UserImage";
 import WidgetWrapper from "../../components/WidgetWrapper";
 import { selectState, setPosts } from "../../state";
 
-function MyPostWidget({ picturePath }) {
+interface Props {
+  picturePath?: string;
+}
+
+function MyPostWidget({ picturePath }: Props) {
   const [isImage, setIsImage] = useState(false);
   const [image, setImage] = useState<File | null>(null);
   const [post, setPost] = useState("");

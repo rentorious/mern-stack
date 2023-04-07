@@ -16,7 +16,12 @@ import UserImage from "../../components/UserImage";
 import WidgetWrapper from "../../components/WidgetWrapper";
 import { selectState } from "../../state";
 
-function UserWidget({ userId, picturePath }) {
+interface Props {
+  userId: string;
+  picturePath?: string;
+}
+
+function UserWidget({ userId, picturePath }: Props) {
   const [user, setUser] = useState<any>(null);
 
   const { palette } = useTheme();

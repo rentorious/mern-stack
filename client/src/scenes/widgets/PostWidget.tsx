@@ -13,6 +13,14 @@ import FlexBetween from "../../components/FlexBetween";
 import Friend from "../../components/Friend";
 import WidgetWrapper from "../../components/WidgetWrapper";
 import { selectState, setPost } from "../../state";
+import { Post } from "../../state/types";
+
+interface Props
+  extends Omit<Post, "_id" | "userId" | "firstName" | "lastName"> {
+  postId: string;
+  postUserId: string;
+  name: string;
+}
 
 function PostWidget({
   postId,
@@ -22,9 +30,9 @@ function PostWidget({
   location,
   picturePath,
   userPicturePath,
-  likes,
+  likes = new Map<string, boolean>(),
   comments,
-}) {
+}: Props) {
   const [isComments, setIsComments] = useState(false);
 
   const { palette } = useTheme();

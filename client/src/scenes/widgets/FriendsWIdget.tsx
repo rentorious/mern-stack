@@ -7,7 +7,11 @@ import Friend from "../../components/Friend";
 import WidgetWrapper from "../../components/WidgetWrapper";
 import { selectState, setFriends } from "../../state";
 
-const FriendsWidget = ({ userId }) => {
+interface Props {
+  userId: string;
+}
+
+const FriendsWidget = ({ userId }: Props) => {
   const { palette } = useTheme();
 
   const dispatch = useDispatch();

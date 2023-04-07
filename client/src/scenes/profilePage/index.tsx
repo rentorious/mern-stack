@@ -15,7 +15,7 @@ import { User } from "../../state/types";
 const ProfilePage = () => {
   const [user, setUser] = useState<null | User>(null);
 
-  const { userId } = useParams();
+  const { userId = "" } = useParams();
 
   const { token, baseUrl } = useSelector(selectState);
 
@@ -57,7 +57,7 @@ const ProfilePage = () => {
         >
           <MyPostWidget picturePath={user.picturePath} />
           <Box m="2rem 0" />
-          <PostsWidget userId={userId} isProfile />
+          {userId && <PostsWidget userId={userId} isProfile />}
         </Box>
       </Box>
     </Box>

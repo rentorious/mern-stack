@@ -16,18 +16,24 @@ import {
   MenuItem,
   Select,
   Typography,
+  useTheme,
 } from "@mui/material";
 import { useDispatch } from "react-redux";
 
 import FlexBetween from "../../../components/FlexBetween";
 import { setLogout, setMode } from "../../../state";
 
-export default function NavMenuMobile({ fullName, theme }) {
+interface Props {
+  fullName: string;
+}
+
+export default function NavMenuMobile({ fullName }: Props) {
   const [isMobileMenuToggled, setIsMobileMenuToggled] = useState(false);
 
-  const background = theme.palette.background.default;
-  const dark = theme.palette.secondary.dark;
-  const neutralLight = theme.palette.secondary.light;
+  const { palette } = useTheme();
+  const background = palette.background.default;
+  const dark = palette.secondary.dark;
+  const neutralLight = palette.secondary.light;
 
   const dispatch = useDispatch();
 
@@ -66,7 +72,7 @@ export default function NavMenuMobile({ fullName, theme }) {
                 sx={{ fontSize: "25px" }}
                 onClick={() => dispatch(setMode())}
               >
-                {theme.palette.mode === "dark" ? (
+                {palette.mode === "dark" ? (
                   <DarkMode sx={{ fontSize: "25px" }} />
                 ) : (
                   <LightMode sx={{ color: dark, fontSize: "25px" }} />

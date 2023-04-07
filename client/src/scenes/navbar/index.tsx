@@ -64,9 +64,9 @@ const NavBar = () => {
 
       {/* Desktop Nav */}
       {isNonMobileScreens ? (
-        <NavMenuDesktop theme={theme} fullName={fullName} />
+        <NavMenuDesktop fullName={fullName} />
       ) : (
-        <NavMenuMobile theme={theme} fullName={fullName} />
+        <NavMenuMobile fullName={fullName} />
       )}
     </FlexBetween>
   );

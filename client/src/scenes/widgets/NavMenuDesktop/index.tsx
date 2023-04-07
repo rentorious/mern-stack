@@ -8,22 +8,28 @@ import {
   MenuItem,
   Select,
   Typography,
+  useTheme,
 } from "@mui/material";
 import { useDispatch } from "react-redux";
 
 import FlexBetween from "../../../components/FlexBetween";
 import { setLogout, setMode } from "../../../state";
 
-export default function NavMenuDesktop({ fullName, theme }) {
+interface Props {
+  fullName: string;
+}
+
+export default function NavMenuDesktop({ fullName }: Props) {
   const dispatch = useDispatch();
 
-  const dark = theme.palette.secondary.dark;
-  const neutralLight = theme.palette.secondary.light;
+  const { palette } = useTheme();
+  const dark = palette.secondary.dark;
+  const neutralLight = palette.secondary.light;
 
   return (
     <FlexBetween gap="2rem">
       <IconButton sx={{ fontSize: "25px" }} onClick={() => dispatch(setMode())}>
-        {theme.palette.mode === "dark" ? (
+        {palette.mode === "dark" ? (
           <DarkMode sx={{ fontSize: "25px" }} />
         ) : (
           <LightMode sx={{ color: dark, fontSize: "25px" }} />

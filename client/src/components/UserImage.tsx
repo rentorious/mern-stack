@@ -5,7 +5,12 @@ import { useSelector } from "react-redux";
 
 import { selectState } from "../state";
 
-export default function UserImage({ image, size = "60px" }) {
+interface Props {
+  image?: string;
+  size?: string;
+}
+
+export default function UserImage({ image, size = "60px" }: Props) {
   const baseUrl = useSelector(selectState);
 
   return (

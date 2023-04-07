@@ -5,7 +5,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectState, setPosts } from "../../state";
 import PostWidget from "./PostWidget";
 
-function PostsWidget({ userId, isProfile = false }) {
+interface Props {
+  userId: string;
+  isProfile?: boolean;
+}
+
+function PostsWidget(props: Props) {
+  const { userId, isProfile = false } = props;
+
   const dispatch = useDispatch();
 
   const { posts, token, baseUrl } = useSelector(selectState);

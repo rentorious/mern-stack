@@ -10,7 +10,16 @@ import FlexBetween from "./FlexBetween";
 import UserImage from "./UserImage";
 import { User } from "../state/types";
 
-function Friend({ friendId, name, subtitle, userPicturePath }) {
+interface Props {
+  friendId: string;
+  name: string;
+  subtitle?: string;
+  userPicturePath?: string;
+}
+
+function Friend(props: Props) {
+  const { friendId, name, subtitle, userPicturePath } = props;
+
   const { palette } = useTheme();
   const primaryLight = palette.primary.light;
   const primaryDark = palette.primary.dark;

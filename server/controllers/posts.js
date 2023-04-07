@@ -19,7 +19,7 @@ export const createPost = async (req, res) => {
     });
     await newPost.save();
 
-    const allPosts = await Post.find();
+    const allPosts = await Post.find().sort({ createdAt: -1 });
     res.status(201).json(allPosts);
   } catch (err) {
     res.status(409).json({ message: err.message });
@@ -28,8 +28,9 @@ export const createPost = async (req, res) => {
 
 // READ
 export const getFeedPosts = async (req, res) => {
+  console.log("getting all posts");
   try {
-    const allPosts = await Post.find();
+    const allPosts = await Post.find().sort({ createdAt: -1 });
     res.status(200).json(allPosts);
   } catch (err) {
     res.status(404).json({ message: err.message });
@@ -37,9 +38,10 @@ export const getFeedPosts = async (req, res) => {
 };
 
 export const getUserPosts = async (req, res) => {
+  console.log("getting user posts");
   try {
     const { userId } = req.params;
-    const userPosts = await Post.find({ userId });
+    const userPosts = await Post.find({ userId }).sort({ createdAt: -1 });
     res.status(200).json(userPosts);
   } catch (err) {
     res.status(404).json({ message: err.message });
