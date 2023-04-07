@@ -1,10 +1,6 @@
 import React from "react";
 
-import { Formik } from "formik";
-import { Box, TextField } from "@mui/material";
-
-import { initialValuesLogin } from "../constants";
-import { loginSchema } from "../schemas";
+import { TextField } from "@mui/material";
 
 interface Props {
   handleBlur: any;

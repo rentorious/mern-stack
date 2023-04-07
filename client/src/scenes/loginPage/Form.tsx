@@ -1,24 +1,20 @@
-import React, { useState } from "react";
 import {
   Box,
   Button,
-  TextField,
-  useMediaQuery,
   Typography,
+  useMediaQuery,
   useTheme,
 } from "@mui/material";
-import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { Formik } from "formik";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Dropzone from "react-dropzone";
+import { useNavigate } from "react-router-dom";
 
 import { selectState, setLogin } from "../../state";
-import FlexBetween from "../../components/FlexBetween";
+import LoginForm from "./components/LoginForm";
+import RegisterForm from "./components/RegisterForm";
 import { initialValuesLogin, initialValuesRegister } from "./constants";
 import { loginSchema, registerSchema } from "./schemas";
-import RegisterForm from "./components/RegisterForm";
-import LoginForm from "./components/LoginForm";
 
 export default function Form() {
   const [pageType, setPageType] = useState("login");
