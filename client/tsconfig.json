@@ -13,8 +13,10 @@
       "isolatedModules": true,
       "noEmit": true,
       "strict": true,
-      "noImplicitAny": false
+      "noImplicitAny": false,
+      "baseUrl": "./src"
     },
-    "include": ["src"]
+    "include": ["src"],
+
   }
   
