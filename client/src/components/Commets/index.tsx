@@ -2,11 +2,12 @@ import React from "react";
 
 import { Box, Divider, Typography, useTheme } from "@mui/material";
 
-import { Comment } from "../../state/types";
+import { Comment as CommentType } from "../../state/types";
 import MyCommentForm from "./MyCommentForm";
+import Comment from "components/Comment";
 
 interface Props {
-  comments: Comment[];
+  comments: CommentType[];
   postId: string;
 }
 
@@ -17,13 +18,8 @@ function Comments({ comments, postId }: Props) {
   return (
     <Box mt="0.5rem">
       <MyCommentForm postId={postId} />
-      {comments.map(({ content, _id }) => (
-        <Box key={_id}>
-          <Divider />
-          <Typography sx={{ color: main, m: "0.5rem 0", pl: "1rem" }}>
-            {content}
-          </Typography>
-        </Box>
+      {comments.map((comment) => (
+        <Comment {...comment} key={comment._id} />
       ))}
       <Divider />
     </Box>
