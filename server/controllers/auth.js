@@ -28,8 +28,6 @@ export const register = async (req, res) => {
     const userImageS3Key = await uploadUserImage(_id.valueOf(), req.file);
     const CDN_URL = process.env.AWS_CDN_URL ?? "";
     const picturePath = `${CDN_URL}/${userImageS3Key}`;
-    console.log("CDN URL", CDN_URL);
-    console.log("PicturePath", picturePath);
 
     const newUser = new User({
       _id,

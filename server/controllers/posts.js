@@ -10,14 +10,17 @@ export const createPost = async (req, res) => {
 
     const _id = new mongoose.Types.ObjectId();
 
-    // upload image to s3
-    const postImageS3Key = await uploadPostPicture(
-      userId,
-      _id.valueOf(),
-      req.file
-    );
-    const CDN_URL = process.env.AWS_CDN_URL ?? "";
-    const picturePath = `${CDN_URL}/${postImageS3Key}`;
+    let picturePath = null;
+    if (req.file) {
+      // upload image to s3
+      const postImageS3Key = await uploadPostPicture(
+        userId,
+        _id.valueOf(),
+        req.file
+      );
+      const CDN_URL = process.env.AWS_CDN_URL ?? "";
+      picturePath = `${CDN_URL}/${postImageS3Key}`;
+    }
 
     const user = await User.findById(userId);
     const newPost = Post({
@@ -32,7 +35,10 @@ export const createPost = async (req, res) => {
     });
     await newPost.save();
 
-    const allPosts = await Post.find().sort({ createdAt: -1 });
+    const allPosts = await Post.find()
+      .sort({ createdAt: -1 })
+      .populate("comments")
+      .exec();
     res.status(201).json(allPosts);
   } catch (err) {
     res.status(409).json({ message: err.message });
@@ -52,7 +58,10 @@ export const getFeedPosts = async (req, res) => {
 export const getUserPosts = async (req, res) => {
   try {
     const { userId } = req.params;
-    const userPosts = await Post.find({ userId }).sort({ createdAt: -1 });
+    const userPosts = await Post.find({ userId })
+      .sort({ createdAt: -1 })
+      .populate("comments")
+      .exec();
     res.status(200).json(userPosts);
   } catch (err) {
     res.status(404).json({ message: err.message });
@@ -78,7 +87,9 @@ export const likePost = async (req, res) => {
       id,
       { likes: post.likes },
       { new: true }
-    );
+    )
+      .populate("comments")
+      .exec();
     res.status(200).json(updatedPost);
   } catch (err) {
     res.status(404).json({ message: err.message });
