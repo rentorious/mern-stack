@@ -29,13 +29,14 @@
 ### DONE:
 
 - ✅ Convert to Typescript
+- ✅ Amazon S3 storage and CloudFront CD for storing/loading images
+- ✅ Fix Bug when visiting a persons page
 
 ### IN PROGRESS:
 
-- ⚡ Amazon S3 storage
+- ⚡ Comments
 
 ### TODO:
 
-- ⏳ Fix Bug when visiting a persons page
-- ⏳ Comments
-- ⏳Messaging
+- ⏳ Messaging
+- ⏳ Upload Videos
