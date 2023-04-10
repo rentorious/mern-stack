@@ -22,15 +22,17 @@ const PostSchema = new mongoose.Schema(
       type: Map,
       of: Boolean,
     },
-    comments: {
-      type: Array,
-      default: [],
-    },
+    comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }],
   },
   {
     timestamps: true,
   }
 );
+
+PostSchema.pre(/^find/, function (next) {
+  this.populate("comments");
+  next();
+});
 
 const Post = mongoose.model("Post", PostSchema);
 

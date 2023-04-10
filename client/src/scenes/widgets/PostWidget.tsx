@@ -6,9 +6,10 @@ import {
   FavoriteOutlined,
   ShareOutlined,
 } from "@mui/icons-material";
-import { Box, Divider, IconButton, Typography, useTheme } from "@mui/material";
+import { IconButton, Typography, useTheme } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 
+import Comments from "../../components/Commets";
 import FlexBetween from "../../components/FlexBetween";
 import Friend from "../../components/Friend";
 import WidgetWrapper from "../../components/WidgetWrapper";
@@ -104,19 +105,7 @@ function PostWidget({
           <ShareOutlined />
         </IconButton>
       </FlexBetween>
-      {isComments && (
-        <Box mt="0.5rem">
-          {comments.map((comment, i) => (
-            <Box key={`${name}-${i}`}>
-              <Divider />
-              <Typography sx={{ color: main, m: "0.5rem 0", pl: "1rem" }}>
-                {comment}
-              </Typography>
-            </Box>
-          ))}
-          <Divider />
-        </Box>
-      )}
+      {isComments && <Comments postId={postId} comments={comments} />}
     </WidgetWrapper>
   );
 }
