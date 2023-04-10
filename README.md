@@ -31,12 +31,14 @@
 - ✅ Convert to Typescript
 - ✅ Amazon S3 storage and CloudFront CD for storing/loading images
 - ✅ Fix Bug when visiting a persons page
+- ✅ Comments
 
 ### IN PROGRESS:
 
-- ⚡ Comments
+- ⚡ Integrate RTK Query
 
 ### TODO:
 
+- ⏳ Make it into a PWA
 - ⏳ Messaging
 - ⏳ Upload Videos
