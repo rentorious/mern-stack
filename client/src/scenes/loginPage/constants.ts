@@ -1,11 +1,11 @@
-export const initialValuesRegister = {
+export const initialValuesRegister: any = {
   firstName: "",
   lastName: "",
   email: "",
   password: "",
   location: "",
   occupation: "",
-  picture: "",
+  picture: null,
 };
 
 export const initialValuesLogin = {

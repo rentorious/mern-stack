@@ -1,3 +1,5 @@
+import React from "react";
+
 import { DarkMode, Help, LightMode, Message } from "@mui/icons-material";
 import {
   FormControl,
@@ -6,21 +8,28 @@ import {
   MenuItem,
   Select,
   Typography,
+  useTheme,
 } from "@mui/material";
-import FlexBetween from "../../../components/FlexBetween";
 import { useDispatch } from "react-redux";
+
+import FlexBetween from "../../../components/FlexBetween";
 import { setLogout, setMode } from "../../../state";
 
-export default function NavMenuDesktop({ fullName, theme }) {
+interface Props {
+  fullName: string;
+}
+
+export default function NavMenuDesktop({ fullName }: Props) {
   const dispatch = useDispatch();
 
-  const dark = theme.palette.neutral.dark;
-  const neutralLight = theme.palette.neutral.light;
+  const { palette } = useTheme();
+  const dark = palette.secondary.dark;
+  const neutralLight = palette.secondary.light;
 
   return (
     <FlexBetween gap="2rem">
       <IconButton sx={{ fontSize: "25px" }} onClick={() => dispatch(setMode())}>
-        {theme.palette.mode === "dark" ? (
+        {palette.mode === "dark" ? (
           <DarkMode sx={{ fontSize: "25px" }} />
         ) : (
           <LightMode sx={{ color: dark, fontSize: "25px" }} />
@@ -28,7 +37,7 @@ export default function NavMenuDesktop({ fullName, theme }) {
       </IconButton>
       <Message sx={{ fontSize: "25px" }} />
       <Help sx={{ fontSize: "25px" }} />
-      <FormControl variant="standard" value={fullName}>
+      <FormControl variant="standard">
         <Select
           sx={{
             borderRadius: "0.25rem",

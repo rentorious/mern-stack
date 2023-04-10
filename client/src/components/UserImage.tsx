@@ -1,6 +1,13 @@
+import React from "react";
+
 import { Box } from "@mui/material";
 
-export default function UserImage({ image, size = "60px" }) {
+interface Props {
+  image?: string;
+  size?: string;
+}
+
+export default function UserImage({ image, size = "60px" }: Props) {
   return (
     <Box width={size} height={size}>
       <img
@@ -8,7 +15,7 @@ export default function UserImage({ image, size = "60px" }) {
         width={size}
         height={size}
         alt="user"
-        src={`https://mern-stack-backedn.onrender.com/assets/${image}`}
+        src={image}
       />
     </Box>
   );

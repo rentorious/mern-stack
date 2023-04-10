@@ -2,40 +2,40 @@ import React, { useEffect } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 
-import { setPosts } from "../../state";
+import { selectState, setPosts } from "../../state";
 import PostWidget from "./PostWidget";
 
-function PostsWidget({ userId, isProfile = false }) {
+interface Props {
+  userId: string;
+  isProfile?: boolean;
+}
+
+function PostsWidget(props: Props) {
+  const { userId, isProfile = false } = props;
+
   const dispatch = useDispatch();
 
-  const posts = useSelector((state) => state.posts);
-  const token = useSelector((state) => state.token);
+  const { posts, token, baseUrl } = useSelector(selectState);
 
   useEffect(() => {
     if (isProfile) getUserPosts();
     else getPosts();
 
     async function getPosts() {
-      const response = await fetch(
-        "https://mern-stack-backedn.onrender.com/posts",
-        {
-          method: "GET",
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
+      const response = await fetch(`${baseUrl}/posts`, {
+        method: "GET",
+        headers: { Authorization: `Bearer ${token}` },
+      });
 
       const data = await response.json();
       dispatch(setPosts({ posts: data }));
     }
 
     async function getUserPosts() {
-      const response = await fetch(
-        `https://mern-stack-backedn.onrender.com/posts/${userId}/posts`,
-        {
-          method: "GET",
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
+      const response = await fetch(`${baseUrl}/posts/${userId}`, {
+        method: "GET",
+        headers: { Authorization: `Bearer ${token}` },
+      });
 
       const data = await response.json();
       dispatch(setPosts({ posts: data }));

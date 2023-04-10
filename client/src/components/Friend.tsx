@@ -5,37 +5,43 @@ import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import { setFriends } from "../state";
+import { selectState, setFriends } from "../state";
 import FlexBetween from "./FlexBetween";
 import UserImage from "./UserImage";
+import { User } from "../state/types";
 
-function Friend({ friendId, name, subtitle, userPicturePath }) {
+interface Props {
+  friendId: string;
+  name: string;
+  subtitle?: string;
+  userPicturePath?: string;
+}
+
+function Friend(props: Props) {
+  const { friendId, name, subtitle, userPicturePath } = props;
+
   const { palette } = useTheme();
   const primaryLight = palette.primary.light;
   const primaryDark = palette.primary.dark;
-  const main = palette.neutral.main;
-  const medium = palette.neutral.medium;
+  const main = palette.secondary.main;
+  const medium = palette.secondary.contrastText;
 
+  const { baseUrl, token, user } = useSelector(selectState);
+  const { _id, friends } = user ?? ({} as User);
   const dispatch = useDispatch();
-  const { _id } = useSelector((state) => state.user);
-  const token = useSelector((state) => state.token);
-  const friends = useSelector((state) => state.user.friends);
 
   const isFriend = friends.find((friend) => friend._id === friendId);
 
   const navigate = useNavigate();
 
   const patchFriend = async () => {
-    const res = await fetch(
-      `https://mern-stack-backedn.onrender.com/users/${_id}/${friendId}`,
-      {
-        method: "PATCH",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const res = await fetch(`${baseUrl}/users/${_id}/${friendId}`, {
+      method: "PATCH",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
     const data = await res.json();
     dispatch(setFriends(data));
   };

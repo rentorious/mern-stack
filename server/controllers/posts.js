@@ -1,10 +1,23 @@
+import mongoose from "mongoose";
 import Post from "../models/Post.js";
 import User from "../models/User.js";
+import { uploadPostPicture } from "../s3/upload.js";
 
 // CREATE
 export const createPost = async (req, res) => {
   try {
-    const { userId, description, picturePath } = req.body;
+    const { userId, description } = req.body;
+
+    const _id = new mongoose.Types.ObjectId();
+
+    // upload image to s3
+    const postImageS3Key = await uploadPostPicture(
+      userId,
+      _id.valueOf(),
+      req.file
+    );
+    const CDN_URL = process.env.AWS_CDN_URL ?? "";
+    const picturePath = `${CDN_URL}/${postImageS3Key}`;
 
     const user = await User.findById(userId);
     const newPost = Post({
@@ -19,7 +32,7 @@ export const createPost = async (req, res) => {
     });
     await newPost.save();
 
-    const allPosts = await Post.find();
+    const allPosts = await Post.find().sort({ createdAt: -1 });
     res.status(201).json(allPosts);
   } catch (err) {
     res.status(409).json({ message: err.message });
@@ -29,7 +42,7 @@ export const createPost = async (req, res) => {
 // READ
 export const getFeedPosts = async (req, res) => {
   try {
-    const allPosts = await Post.find();
+    const allPosts = await Post.find().sort({ createdAt: -1 });
     res.status(200).json(allPosts);
   } catch (err) {
     res.status(404).json({ message: err.message });
@@ -39,7 +52,7 @@ export const getFeedPosts = async (req, res) => {
 export const getUserPosts = async (req, res) => {
   try {
     const { userId } = req.params;
-    const userPosts = await Post.find({ userId });
+    const userPosts = await Post.find({ userId }).sort({ createdAt: -1 });
     res.status(200).json(userPosts);
   } catch (err) {
     res.status(404).json({ message: err.message });

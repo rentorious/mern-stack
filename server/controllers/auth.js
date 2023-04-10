@@ -3,6 +3,9 @@ import jwt from "jsonwebtoken";
 
 import User from "../models/User.js";
 
+import mongoose from "mongoose";
+import { uploadUserImage } from "../s3/upload.js";
+
 // REGISTER USER
 export const register = async (req, res) => {
   try {
@@ -11,7 +14,6 @@ export const register = async (req, res) => {
       lastName,
       email,
       password,
-      picturePath,
       friends,
       location,
       occupation,
@@ -20,7 +22,17 @@ export const register = async (req, res) => {
     const salt = await bcrypt.genSalt();
     const passwordHash = await bcrypt.hash(password, salt);
 
+    const _id = new mongoose.Types.ObjectId();
+
+    // upload user image
+    const userImageS3Key = await uploadUserImage(_id.valueOf(), req.file);
+    const CDN_URL = process.env.AWS_CDN_URL ?? "";
+    const picturePath = `${CDN_URL}/${userImageS3Key}`;
+    console.log("CDN URL", CDN_URL);
+    console.log("PicturePath", picturePath);
+
     const newUser = new User({
+      _id,
       firstName,
       lastName,
       email,
@@ -34,6 +46,7 @@ export const register = async (req, res) => {
     });
 
     const savedUser = await newUser.save();
+
     res.status(201).json(savedUser);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -52,6 +65,7 @@ export const login = async (req, res) => {
     if (!isMatch)
       return res.status(400).json({ message: "Invalid credentials!" });
 
+    // eslint-disable-next-line no-undef
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
     delete user.password;
 

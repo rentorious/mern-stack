@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import React, { useMemo } from "react";
 
 import { useSelector } from "react-redux";
 import { BrowserRouter, Navigate, Routes, Route } from "react-router-dom";
@@ -9,12 +9,13 @@ import HomePage from "./scenes/homePage";
 import LoginPage from "./scenes/loginPage";
 import ProfilePage from "./scenes/profilePage";
 import { themeSettings } from "./theme";
+import { selectState } from "./state";
 
 function App() {
-  const mode = useSelector((state) => state.mode);
-  const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
+  const { mode, token } = useSelector(selectState);
 
-  const isAuth = !!useSelector((state) => state.token);
+  const isAuth = !!token;
+  const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
 
   return (
     <div className="app">

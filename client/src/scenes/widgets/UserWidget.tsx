@@ -1,46 +1,48 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
-import { useNavigate } from "react-router-dom";
 import {
-  ManageAccountsOutlined,
   EditOutlined,
   LocationOnOutlined,
+  ManageAccountsOutlined,
   WorkOutlineOutlined,
-  Work,
 } from "@mui/icons-material";
-import { Box, Typography, Divider, useTheme } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
-import UserImage from "../../components/UserImage";
-import FlexBetween from "../../components/FlexBetween";
-import WidgetWrapper from "../../components/WidgetWrapper";
 import { light } from "@mui/material/styles/createPalette";
+import FlexBetween from "../../components/FlexBetween";
+import UserImage from "../../components/UserImage";
+import WidgetWrapper from "../../components/WidgetWrapper";
+import { selectState } from "../../state";
 
-function UserWidget({ userId, picturePath }) {
-  const [user, setUser] = useState(null);
+interface Props {
+  userId: string;
+  picturePath?: string;
+}
+
+function UserWidget({ userId, picturePath }: Props) {
+  const [user, setUser] = useState<any>(null);
 
   const { palette } = useTheme();
-  const dark = palette.neutral.dark;
-  const medium = palette.neutral.medium;
-  const main = palette.neutral.main;
+  const dark = palette.secondary.dark;
+  const medium = palette.secondary.contrastText;
+  const main = palette.secondary.main;
 
   const navigate = useNavigate();
 
-  const token = useSelector((state) => state.token);
+  const { token, baseUrl } = useSelector(selectState);
 
   useEffect(() => {
     getUser();
 
     async function getUser() {
-      const res = await fetch(
-        `https://mern-stack-backedn.onrender.com/users/${userId}`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const res = await fetch(`${baseUrl}/users/${userId}`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       const data = await res.json();
       setUser(data);

@@ -1,10 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { AuthState } from "./types";
+import { RootState } from "./store";
 
-const initialState = {
+const initialState: AuthState = {
   mode: "light",
   user: null,
   token: null,
   posts: [],
+  baseUrl:
+    process.env.NODE_ENV === "production"
+      ? process.env.REACT_APP_BASE_URL
+      : "http://localhost:3001",
 };
 
 export const authSlice = createSlice({
@@ -46,3 +52,5 @@ export const { setMode, setLogin, setLogout, setFriends, setPost, setPosts } =
   authSlice.actions;
 
 export default authSlice.reducer;
+
+export const selectState = (state: RootState) => state;

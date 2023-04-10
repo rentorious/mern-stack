@@ -18,10 +18,10 @@ export const colorTokens = {
   primary: {
     50: "#E6FBFF",
     100: "#CCF7FE",
-    200: "#99EEFD",
+    200: "#813656",
     300: "#66E6FC",
     400: "#33DDFB",
-    500: "#00D5FA",
+    500: "#9D6381",
     600: "#00A0BC",
     700: "#006B7D",
     800: "#00353F",
@@ -40,37 +40,35 @@ export const themeSettings = (mode) => {
             primary: {
               dark: colorTokens.primary[200],
               main: colorTokens.primary[500],
-              light: colorTokens.primary[800],
+              light: colorTokens.grey[200],
             },
-            neutral: {
+            secondary: {
               dark: colorTokens.grey[100],
               main: colorTokens.grey[200],
-              mediumMain: colorTokens.grey[300],
-              medium: colorTokens.grey[400],
-              light: colorTokens.grey[700],
+              contrastText: colorTokens.grey[100],
+              light: colorTokens.grey[600],
             },
             background: {
               default: colorTokens.grey[900],
-              alt: colorTokens.grey[800],
+              paper: colorTokens.grey[800],
             },
           }
         : {
             // palette values for light mode
             primary: {
-              dark: colorTokens.primary[700],
+              dark: colorTokens.primary[200],
               main: colorTokens.primary[500],
-              light: colorTokens.primary[50],
+              light: colorTokens.primary[200],
             },
-            neutral: {
+            secondary: {
               dark: colorTokens.grey[700],
               main: colorTokens.grey[500],
-              mediumMain: colorTokens.grey[400],
-              medium: colorTokens.grey[300],
+              contrastText: colorTokens.grey[400],
               light: colorTokens.grey[50],
             },
             background: {
               default: colorTokens.grey[10],
-              alt: colorTokens.grey[0],
+              paper: colorTokens.grey[0],
             },
           }),
     },

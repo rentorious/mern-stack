@@ -1,26 +1,26 @@
 import React, { useState } from "react";
 
-import { useDispatch, useSelector } from "react-redux";
 import {
   ChatBubbleOutlineOutlined,
   FavoriteBorderOutlined,
   FavoriteOutlined,
   ShareOutlined,
 } from "@mui/icons-material";
-import {
-  Box,
-  Divider,
-  Icon,
-  Button,
-  Typography,
-  useTheme,
-  IconButton,
-} from "@mui/material";
+import { Box, Divider, IconButton, Typography, useTheme } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
 
 import FlexBetween from "../../components/FlexBetween";
 import Friend from "../../components/Friend";
 import WidgetWrapper from "../../components/WidgetWrapper";
-import { setPost } from "../../state";
+import { selectState, setPost } from "../../state";
+import { Post } from "../../state/types";
+
+interface Props
+  extends Omit<Post, "_id" | "userId" | "firstName" | "lastName"> {
+  postId: string;
+  postUserId: string;
+  name: string;
+}
 
 function PostWidget({
   postId,
@@ -30,34 +30,31 @@ function PostWidget({
   location,
   picturePath,
   userPicturePath,
-  likes,
+  likes = new Map<string, boolean>(),
   comments,
-}) {
+}: Props) {
   const [isComments, setIsComments] = useState(false);
 
   const { palette } = useTheme();
-  const main = palette.neutral.main;
+  const main = palette.secondary.main;
   const primary = palette.primary.main;
 
   const dispatch = useDispatch();
-  const token = useSelector((state) => state.token);
-  const loggedInUserId = useSelector((state) => state.user._id);
+  const { token, baseUrl, user } = useSelector(selectState);
+  const loggedInUserId = user?._id || "";
 
   const isLiked = !!likes[loggedInUserId];
   const likeCount = Object.keys(likes).length;
 
   const patchLike = async () => {
-    const res = await fetch(
-      `https://mern-stack-backedn.onrender.com/${postId}/like`,
-      {
-        method: "PATCH",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ userId: loggedInUserId }),
-      }
-    );
+    const res = await fetch(`${baseUrl}/posts/${postId}/like`, {
+      method: "PATCH",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ userId: loggedInUserId }),
+    });
 
     const updatedPost = await res.json();
     dispatch(setPost({ post: updatedPost }));
@@ -80,7 +77,7 @@ function PostWidget({
           height="auto"
           alt="post"
           style={{ borderRadius: "0.75rem", marginTop: "0.75rem" }}
-          src={`https://mern-stack-backedn.onrender.com/assets/${picturePath}`}
+          src={picturePath}
         />
       )}
       <FlexBetween mt="0.25rem">
