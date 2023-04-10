@@ -1,10 +1,23 @@
+import mongoose from "mongoose";
 import Post from "../models/Post.js";
 import User from "../models/User.js";
+import { uploadPostPicture } from "../s3/upload.js";
 
 // CREATE
 export const createPost = async (req, res) => {
   try {
-    const { userId, description, picturePath } = req.body;
+    const { userId, description } = req.body;
+
+    const _id = new mongoose.Types.ObjectId();
+
+    // upload image to s3
+    const postImageS3Key = await uploadPostPicture(
+      userId,
+      _id.valueOf(),
+      req.file
+    );
+    const CDN_URL = process.env.AWS_CDN_URL ?? "";
+    const picturePath = `${CDN_URL}/${postImageS3Key}`;
 
     const user = await User.findById(userId);
     const newPost = Post({

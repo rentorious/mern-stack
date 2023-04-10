@@ -31,6 +31,18 @@ export const uploadUserImage = async (userId, file) => {
   return s3Key;
 };
 
+export const uploadPostPicture = async (userId, postId, file) => {
+  const { mimetype, buffer } = file;
+
+  const extension = getExtensionFromMimeType(mimetype);
+
+  const key = `posts/${userId}/${postId}.${extension}`;
+
+  const { Key } = await upload(buffer, key);
+
+  return Key;
+};
+
 export const upload = async (buffer, key) => {
   const s3Client = new S3Client({ region });
   const bucketName = "socialite-images";

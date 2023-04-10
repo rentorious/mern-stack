@@ -1,9 +1,9 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import uuid from "uuid";
 
 import User from "../models/User.js";
 
+import mongoose from "mongoose";
 import { uploadUserImage } from "../s3/upload.js";
 
 // REGISTER USER
@@ -14,7 +14,6 @@ export const register = async (req, res) => {
       lastName,
       email,
       password,
-      picturePath,
       friends,
       location,
       occupation,
@@ -23,7 +22,14 @@ export const register = async (req, res) => {
     const salt = await bcrypt.genSalt();
     const passwordHash = await bcrypt.hash(password, salt);
 
-    const _id = uuid.v4();
+    const _id = new mongoose.Types.ObjectId();
+
+    // upload user image
+    const userImageS3Key = await uploadUserImage(_id.valueOf(), req.file);
+    const CDN_URL = process.env.AWS_CDN_URL ?? "";
+    const picturePath = `${CDN_URL}/${userImageS3Key}`;
+    console.log("CDN URL", CDN_URL);
+    console.log("PicturePath", picturePath);
 
     const newUser = new User({
       _id,
@@ -38,9 +44,6 @@ export const register = async (req, res) => {
       viewedProfile: Math.floor(Math.random() * 1000),
       impressions: Math.floor(Math.random() * 1000),
     });
-
-    // upload user image
-    await uploadUserImage(savedUser._id.valueOf(), req.file);
 
     const savedUser = await newUser.save();
 
