@@ -69,7 +69,7 @@ const MyCommentForm = (props: Props) => {
           placeholder="Add your thoughts..."
           value={content}
           onChange={(e) => setContent(e.target.value)}
-          sx={{ fontSize: "1.25rem", pl: "0.5rem" }}
+          sx={{ fontSize: "1.25rem", pl: "0.5rem", flexGrow: 1 }}
         />
         <Button
           type="submit"

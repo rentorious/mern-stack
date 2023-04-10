@@ -4,9 +4,10 @@ import { FavoriteBorderOutlined, FavoriteOutlined } from "@mui/icons-material";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
 
 import { Comment as CommentType } from "state/types";
+import { setPost } from "state";
 import FlexBetween from "./FlexBetween";
 import UserImage from "./UserImage";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectState } from "state";
 import { useNavigate } from "react-router-dom";
 
@@ -19,14 +20,14 @@ const Comment = (props: Props) => {
     postId,
     content,
     firstName,
-    lastName,
     email,
     likes = new Map<string, boolean>(),
     userPicturePath,
   } = props;
 
-  const { user } = useSelector(selectState);
+  const { user, baseUrl, token } = useSelector(selectState);
   const loggedInUserId = user?._id ?? "";
+  const dispatch = useDispatch();
 
   const isLiked = !!likes[loggedInUserId];
   const likeCount = Object.keys(likes).length;
@@ -36,6 +37,19 @@ const Comment = (props: Props) => {
   const light = palette.primary.light;
 
   const navigate = useNavigate();
+
+  const patchLike = async () => {
+    const res = await fetch(`${baseUrl}/posts/${postId}/comments/${_id}/like`, {
+      method: "PATCH",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ userId: loggedInUserId }),
+    });
+    const updatedPost = await res.json();
+    dispatch(setPost({ post: updatedPost }));
+  };
 
   return (
     <FlexBetween p="0.5rem">
@@ -67,7 +81,7 @@ const Comment = (props: Props) => {
         <Typography>{content}</Typography>
       </Box>
       <FlexBetween gap="0.3rem">
-        <IconButton onClick={() => {}}>
+        <IconButton onClick={patchLike}>
           {isLiked ? (
             <FavoriteOutlined sx={{ color: primary }} />
           ) : (
