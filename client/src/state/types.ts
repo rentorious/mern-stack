@@ -30,7 +30,7 @@ export interface Post {
   picturePath?: string;
   userPicturePath?: string;
   likes?: Map<string, boolean>;
-  comments: string[];
+  comments: Comment[];
 }
 
 export interface Friend {
@@ -39,4 +39,16 @@ export interface Friend {
   lastName: string;
   occupation?: string;
   picturePath?: string;
+}
+
+export interface Comment {
+  _id: string;
+  userId: string;
+  postId: string;
+  content: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  likes?: Map<string, boolean>;
+  userPicturePath?: string;
 }
