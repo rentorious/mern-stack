@@ -30,9 +30,7 @@ export const createComment = async (req, res) => {
       postId,
       { comments },
       { new: true }
-    )
-      .populate("comments")
-      .exec();
+    );
     res.status(200).json(updatedPost);
   } catch (err) {
     res.status(409).json({ message: err.message });

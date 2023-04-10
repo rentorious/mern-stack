@@ -29,6 +29,11 @@ const PostSchema = new mongoose.Schema(
   }
 );
 
+PostSchema.pre(/^find/, function (next) {
+  this.populate("comments");
+  next();
+});
+
 const Post = mongoose.model("Post", PostSchema);
 
 export default Post;
