@@ -27,7 +27,7 @@ const AdWidget = () => {
         width="100%"
         height="auto"
         alt="advert"
-        src={`${baseUrl}/assets/info4.jpeg`}
+        src="https://dvvyme64phkx2.cloudfront.net/pexels-shiny-diamond-3373738.jpg"
         style={{ borderRadius: "0.75rem", margin: "0.75rem 0" }}
       />
       <FlexBetween>
