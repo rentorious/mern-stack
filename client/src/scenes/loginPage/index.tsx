@@ -31,6 +31,14 @@ const LoginPage = () => {
         <Typography fontWeight="500" variant="h5" sx={{ mb: "1.5rem" }}>
           Welcome the SociaLite, Where all communication is lite!
         </Typography>
+        <Typography
+          fontWeight="500"
+          color="info"
+          variant="body1"
+          sx={{ mb: "1.5rem" }}
+        >
+          To start, register or login
+        </Typography>
       </Box>
       <Form />
     </Box>

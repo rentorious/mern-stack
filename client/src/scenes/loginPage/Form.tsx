@@ -22,7 +22,7 @@ export default function Form() {
   const isRegister = pageType === "register";
 
   const { palette } = useTheme();
-  const isNonMobile = useMediaQuery("(min-width:600px)");
+  const isNonMobile = useMediaQuery("(min-width:1000px)");
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -104,6 +104,8 @@ export default function Form() {
                 gridColumn: isNonMobile ? undefined : "span 4",
               },
             }}
+            width={isNonMobile ? "50%" : "100%"}
+            marginX="auto"
           >
             {isRegister && (
               <RegisterForm
@@ -124,7 +126,7 @@ export default function Form() {
             />
           </Box>
           {/* BUTTONS */}
-          <Box p="1rem">
+          <Box p="1rem" width={isNonMobile ? "50%" : "100%"} marginX="auto">
             <Button
               fullWidth
               type="submit"
